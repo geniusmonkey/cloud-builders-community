@@ -50,4 +50,7 @@ echo "Adding plugins"
 helm plugin install https://github.com/chartmuseum/helm-push
 
 echo "Running: helm $@"
+if [ "$DEBUG" = true ]; then
+    echo "Running: helm $@"
+fi
 helm "$@"
