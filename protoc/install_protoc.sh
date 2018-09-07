@@ -2,7 +2,15 @@
 
 set -e
 
-curl -SL https://github.com/google/protobuf/releases/download/v3.6.1/protoc-3.6.1-linux-x86_64.zip -o protoc.zip && \
-unzip protoc.zip -d /usr
+git clone https://github.com/protocolbuffers/protobuf.git
+cd protobuf
+git checkout v3.6.1
 
-rm protoc.zip
+git submodule update --init --recursive
+./autogen.sh
+./configure --disable-debug --disable-dependency-tracking
+
+make
+make check
+make install
+ldconfig

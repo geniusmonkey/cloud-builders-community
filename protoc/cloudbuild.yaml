@@ -3,3 +3,4 @@ steps:
   args: ['build', '--tag=gcr.io/$PROJECT_ID/protoc', '.']
 
 images: ['gcr.io/$PROJECT_ID/protoc']
+timeout: 2700s
