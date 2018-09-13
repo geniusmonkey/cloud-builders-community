@@ -7,7 +7,7 @@ COPY helm.bash /builder/helm.bash
 RUN chmod +x /builder/helm.bash && \
   mkdir -p /builder/helm && \
   apt-get update && \
-  apt-get install -y curl && \
+  apt-get install -y curl wget && \
   curl -SL https://storage.googleapis.com/kubernetes-helm/helm-${VERSION}-linux-amd64.tar.gz -o helm.tar.gz && \
   tar zxvf helm.tar.gz --strip-components=1 -C /builder/helm linux-amd64/helm && \
   rm helm.tar.gz && \

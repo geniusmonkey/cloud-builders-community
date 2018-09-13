@@ -33,9 +33,10 @@ EOF
 fi
 
 echo "Running: helm init --client-only"
-helm init --client-only
+helm init --client-only --skip-refresh
 
-helm 
+echo "Adding plugins"
+helm plugin install --version=v0.4.0 https://github.com/chartmuseum/helm-push 
 
 # check if repo values provided then add that repo
 if [[ -n $HELM_REPO_NAME && -n $HELM_REPO_URL ]]; then
@@ -45,9 +46,6 @@ fi
 
 echo "Running: helm repo update"
 helm repo update
-
-echo "Adding plugins"
-helm plugin install https://github.com/chartmuseum/helm-push
 
 echo "Running: helm $@"
 if [ "$DEBUG" = true ]; then
