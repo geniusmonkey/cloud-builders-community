@@ -1,0 +1,26 @@
+# In this directory, run the following command to build this builder.
+# $ gcloud builds submit . --config=cloudbuild.yaml
+#
+# TODO(franklinn): Stop tagging java/mvn images once usage has dropped off.
+
+steps:
+- name: 'gcr.io/cloud-builders/docker'
+  args:
+  - 'build'
+  - '--build-arg=BASE_IMAGE=gcr.io/$PROJECT_ID/javac:11'
+  - '--build-arg=GRADLE_VERSION=5.0'
+  - '--build-arg=SHA=6157ac9f3410bc63644625b3b3e9e96c963afd7910ae0697792db57813ee79a6'
+  - '--tag=gcr.io/$PROJECT_ID/gradle:5-jdk-11'
+  - '--tag=gcr.io/$PROJECT_ID/java/gradle:5-jdk-11'
+  - '.'
+  waitFor: ['-']
+
+
+# Run examples
+- name: 'gcr.io/$PROJECT_ID/gradle:5-jdk-11'
+  args: ['tasks']
+  dir: 'examples/spring_boot'
+
+images:
+- 'gcr.io/$PROJECT_ID/gradle:5-jdk-11'
+- 'gcr.io/$PROJECT_ID/java/gradle:5-jdk-11'
