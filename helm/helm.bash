@@ -44,6 +44,19 @@ if [[ -n $GCS_PLUGIN_VERSION ]]; then
   helm plugin install https://github.com/nouney/helm-gcs --version $GCS_PLUGIN_VERSION
 fi
 
+# if DIFF_PLUGIN_VERSION is set, install the plugin
+if [[ -n $DIFF_PLUGIN_VERSION ]]; then
+  echo "Installing helm DIFF plugin version $DIFF_PLUGIN_VERSION "
+  helm plugin install https://github.com/databus23/helm-diff --version $DIFF_PLUGIN_VERSION
+fi
+
+# if HELMFILE_VERSION is set, install Helmfile
+if [[ -n $HELMFILE_VERSION ]]; then
+  echo "Installing Helmfile version $HELMFILE_VERSION "
+  curl -SsL https://github.com/roboll/helmfile/releases/download/$HELMFILE_VERSION/helmfile_linux_amd64 > helmfile
+  chmod 700 helmfile
+fi
+
 # check if repo values provided then add that repo
 if [[ -n $HELM_REPO_NAME && -n $HELM_REPO_URL ]]; then
   echo "Adding chart helm repo $HELM_REPO_URL "
