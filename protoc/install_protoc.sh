@@ -4,7 +4,7 @@ set -e
 
 git clone https://github.com/protocolbuffers/protobuf.git
 cd protobuf
-git checkout v3.6.1
+git checkout v3.10.0
 
 git submodule update --init --recursive
 ./autogen.sh

@@ -1,4 +1,4 @@
-FROM golang:1.10-stretch
+FROM golang:1.13-buster
 
 WORKDIR /root
 
@@ -10,6 +10,7 @@ RUN apt-get update && \
         curl vim wget unzip gradle autoconf automake libtool make g++ unzip && \
         ./install_protoc.sh && \
         ./install_grpc.sh && \
+        go get -u github.com/pseudomuto/protoc-gen-doc/cmd/protoc-gen-doc && \
         apt-get remove --purge -y curl vim wget unzip gradle autoconf automake libtool make g++ unzip && \
         apt-get --purge -y autoremove && \
         apt-get clean && \
